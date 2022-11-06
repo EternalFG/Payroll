@@ -10,18 +10,13 @@ namespace Payroll
 {
     public static class Program
     {
-        //[STAThread]
+        [STAThread]
         static void Main()
         {
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Authorization());
-            EmployeeManager employeeManager = new EmployeeManager();
-            Manager manager = employeeManager.CreateManager("Maks", "Gradov", 24, EmployeeGender.Man, 23000, DateTime.Now);
-            Employee employee = employeeManager.CreateEmployee("Maks", "Gradov", 24, EmployeeGender.Man, 23000, DateTime.Now);
-            employeeManager.AddSubordinate(employee, manager);
-            employeeManager.AddSubordinate(manager, new Salesman("ds", "fsf", 22, EmployeeGender.Women, 34000, DateTime.Now));
-            Console.ReadLine();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Authentication());
+
 
         }
     }

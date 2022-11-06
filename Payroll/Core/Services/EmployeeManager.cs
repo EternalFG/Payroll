@@ -25,26 +25,66 @@ namespace Payroll.Core.Services
         }
 
 
-        public void AddSubordinate(IEmployee employee, IEmployee subordinate)
+        public void AddSubordinate(IEmployee changeableEmployee, IEmployee subordinateAdded)
         {
-            if (employee is Employee)
+            if (changeableEmployee is Employee)
             {
-                Console.WriteLine("Нет");
                 return;
             }
-            if (employee is Manager manager)
+            if (changeableEmployee is Manager manager)
             {
-                var sub = manager.Subordinates.FirstOrDefault(s => s.Name.Equals(subordinate.Name));
-                if (sub == null)
+                if (subordinateAdded is Employee employee)
                 {
-                    if (sub is Employee emp)
+                    if (manager.Subordinates.FirstOrDefault(s => s.Name.Equals(employee.Name)) != null)
                     {
-                        manager.Subordinates.Add(emp);
+                        Console.WriteLine("Already a subordinate");
                     }
+                    else
+                    {
+                        manager.Subordinates.Add(employee);
+                    }
+                }
+            }
+            if (changeableEmployee is Salesman salesman)
+            {
+                if (salesman.Subordinates.FirstOrDefault(s => s.Name.Equals(subordinateAdded.Name)) != null)
+                {
+                    Console.WriteLine("Already a subordinate");
                 }
                 else
                 {
-                    Console.WriteLine("Already a subordinate");
+                    salesman.Subordinates.Add(subordinateAdded);
+                }
+            }
+        }
+
+        public void RemoveSubordinate(IEmployee changeableEmployee, IEmployee subordinateAdded)
+        {
+            if (changeableEmployee is Employee)
+            {
+                return;
+            }
+            if (changeableEmployee is Manager manager)
+            {
+                if (manager.Subordinates.FirstOrDefault(s => s.Name.Equals(subordinateAdded.Name)) != null)
+                {
+                    manager.Subordinates.Remove((Employee)subordinateAdded);
+                }
+                else
+                {
+                    Console.WriteLine("Subordinate not found");
+                }
+            }
+            if (changeableEmployee is Salesman salesman)
+            {
+                var subordinate = salesman.Subordinates.FirstOrDefault(s => s.Name.Equals(subordinateAdded.Name));
+                if (subordinate != null)
+                {
+                    salesman.Subordinates.Remove(subordinate);
+                }
+                else
+                {
+                    Console.WriteLine("Subordinate not found");
                 }
             }
         }

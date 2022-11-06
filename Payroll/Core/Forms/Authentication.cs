@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Payroll
 {
-    public partial class Authorization : Form
+    public partial class Authentication : Form
     {
-        public Authorization()
+        public Authentication()
         {
             InitializeComponent();
         }

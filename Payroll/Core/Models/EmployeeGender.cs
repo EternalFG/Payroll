@@ -9,6 +9,6 @@ namespace Payroll.Core.Models
     public enum EmployeeGender
     {
         Man,
-        Women,
+        Woman,
     }
 }

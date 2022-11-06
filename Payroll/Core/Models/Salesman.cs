@@ -18,7 +18,7 @@ namespace Payroll.Core.Models
         private DateTime _enrollmentDate;
         private Surcharge _surchargePercentage = new Surcharge(1, 35);
 
-        public List<IEmployee> Subordinates { get; set; }
+        public List<IEmployee> Subordinates { get; set; } = new List<IEmployee>();
         public Salesman(string name, string surname, byte age, EmployeeGender gender, decimal salary, DateTime enrollmentDate)
         {
             _name = name;
