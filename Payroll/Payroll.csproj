@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Data\EmployeeDB\EmployeeTable.cs" />
     <Compile Include="Core\Forms\Authentication.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -3,55 +3,32 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Payroll.Core.Models
 {
-    public class Employee : ISalaryCalculation
+    public class Employee : EmployeeBase
     {
-        private string _name;
-        private string _surname;
-        private byte _age;
-        private EmployeeGender _gender;
-        private decimal _salary;
-        private DateTime _enrollmentDate;
-        private Surcharge _surchargePercentage = new Surcharge(3, 30);
+        public Employee(string name, string surname, byte age, EmployeeGender gender, decimal baseSalary, DateTime enrollmentDate) : base (name, surname, age, gender, baseSalary, enrollmentDate, new Surcharge(3,30)) { }
 
-        public Employee(string name, string surname, byte age, EmployeeGender gender, decimal baseSalary, DateTime enrollmentDate)
+
+        public override decimal CalculateSalary()
         {
-            _name = name;
-            _surname = surname;
-            _age = age;
-            _gender = gender;
-            _salary = baseSalary;
-            _enrollmentDate = enrollmentDate;
+            return Salary + (CalculateSurchargePercentage() / 100) * Salary;
         }
 
-        public string Name => _name;
-        public string Surname => _surname;
-        public byte Age => _age;
-        public EmployeeGender Gender => _gender;
-        public decimal Salary => CalculateSalary();
-        public DateTime EnrollmentDate => _enrollmentDate;
-
-        public decimal CalculateSalary()
+        public override uint CalculateSurchargePercentage()
         {
-            return _salary + (CalculateSurchargePercentage()/100)*_salary;
-        }
-
-        public uint CalculateSurchargePercentage()
-        {
-            if ((DateTime.Now.Year - _enrollmentDate.Year)*_surchargePercentage.IncreaseSurcharge >= _surchargePercentage.MaxSurcharge)
+            if ((DateTime.Now.Year - EnrollmentDate.Year) * SurchargePercentage.IncreaseSurcharge >= SurchargePercentage.MaxSurcharge) 
             {
-                return _surchargePercentage.MaxSurcharge;
+                return SurchargePercentage.MaxSurcharge;
             }
             else
             {
-                return (uint)((DateTime.Now.Year - _enrollmentDate.Year) * _surchargePercentage.IncreaseSurcharge);
+                return (uint)((DateTime.Now.Year - EnrollmentDate.Year) * SurchargePercentage.IncreaseSurcharge);
             }
         }
-
-        public Employee() { }
     }
 }

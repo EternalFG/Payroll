@@ -7,55 +7,33 @@ using System.Threading.Tasks;
 
 namespace Payroll.Core.Models
 {
-    public class Manager : ISalaryCalculation
+    public class Manager : EmployeeBase
     {
-        private string _name;
-        private string _surname;
-        private byte _age;
-        private EmployeeGender _gender;
-        private decimal _salary;
-        private DateTime _enrollmentDate;
-        private Surcharge _surchargePercentage = new Surcharge(5, 40);
-        public List<Employee> Subordinates { get; } = new List<Employee>();
 
-        public Manager(string name, string surname, byte age, EmployeeGender gender, decimal salary, DateTime enrollmentDate)
-        {
-            _name = name;
-            _surname = surname;
-            _age = age;
-            _gender = gender;
-            _salary = salary;
-            _enrollmentDate = enrollmentDate;
-        }
+        public Manager(string name, string surname, byte age, EmployeeGender gender, decimal baseSalary, DateTime enrollmentDate) :
+            base(name, surname, age, gender, baseSalary, enrollmentDate, new Surcharge(5, 40), new List<IEmployee>()) { }
 
-        public string Name => _name;
-        public string Surname => _surname;
-        public byte Age => _age;
-        public EmployeeGender Gender => _gender;
-        public decimal Salary => CalculateSalary();
 
-        public DateTime EnrollmentDate => _enrollmentDate;
-
-        public decimal CalculateSalary()
+        public override decimal CalculateSalary()
         {
             decimal subordinatesSurcharge = 0;
             foreach (var subordinate in Subordinates)
             {
-                subordinatesSurcharge += subordinate.CalculateSalary() * (decimal)0.05;
+                subordinatesSurcharge += subordinate.Salary * (decimal)0.05;
             }
-            return _salary + (CalculateSurchargePercentage() / 100) * _salary + subordinatesSurcharge;
+            return Salary + (CalculateSurchargePercentage() / 100) * Salary + subordinatesSurcharge;
         }
 
 
-        public uint CalculateSurchargePercentage()
+        public override uint CalculateSurchargePercentage()
         {
-            if ((DateTime.Now.Year - _enrollmentDate.Year) * _surchargePercentage.IncreaseSurcharge >= _surchargePercentage.MaxSurcharge)
+            if ((DateTime.Now.Year - EnrollmentDate.Year) * SurchargePercentage.IncreaseSurcharge >= SurchargePercentage.MaxSurcharge)
             {
-                return _surchargePercentage.MaxSurcharge;
+                return SurchargePercentage.MaxSurcharge;
             }
             else
             {
-                return (uint)((DateTime.Now.Year - _enrollmentDate.Year) * _surchargePercentage.IncreaseSurcharge);
+                return (uint)((DateTime.Now.Year - EnrollmentDate.Year) * SurchargePercentage.IncreaseSurcharge);
             }
         }
     }
