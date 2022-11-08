@@ -1,4 +1,5 @@
-﻿using Payroll.Core.Services;
+﻿using LiteDB;
+using Payroll.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Payroll.Core.Models
 {
     public abstract class EmployeeBase : ISalaryCalculation
     {
+        [BsonId]public string Id { get; }
         protected EmployeeBase(string name, string surname, byte age, EmployeeGender gender, decimal salary, DateTime enrollmentDate, Surcharge surchargePercentage, List<IEmployee> subordinates = null)
         {
             Name = name;
