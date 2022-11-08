@@ -11,7 +11,8 @@ namespace Payroll.Core.Models
 {
     public class Employee : EmployeeBase
     {
-        public Employee(string name, string surname, byte age, EmployeeGender gender, decimal baseSalary, DateTime enrollmentDate) : base (name, surname, age, gender, baseSalary, enrollmentDate, new Surcharge(3,30)) { }
+        public Employee(string name, string surname, byte age, EmployeeGender gender, decimal baseSalary, DateTime enrollmentDate) :
+            base (name, surname, age, gender, baseSalary, enrollmentDate, new Surcharge(3,30)) { }
 
 
         public override decimal CalculateSalary()
