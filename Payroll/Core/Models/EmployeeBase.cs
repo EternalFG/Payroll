@@ -1,4 +1,5 @@
 ﻿using LiteDB;
+using Payroll.Core.Data.EmployeeDB;
 using Payroll.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -8,37 +9,30 @@ using System.Threading.Tasks;
 
 namespace Payroll.Core.Models
 {
-    public abstract class EmployeeBase : ISalaryCalculation
+    public abstract class EmployeeBase : User, ISalaryCalculation
     {
-        [BsonId]public string Id { get; }
-        protected EmployeeBase(string name, string surname, byte age, EmployeeGender gender, decimal salary, DateTime enrollmentDate, Surcharge surchargePercentage, List<IEmployee> subordinates = null)
+        [BsonId] public string Id { get; }
+        public EmployeeBase(string id,string name, string surname, decimal salary, EmployeeGender gender, DateTime enrollmentDate, Surcharge surchargePercentage, List<IEmployee> subordinates = null)
         {
+            Id = id;
             Name = name;
             Surname = surname;
-            Age = age;
-            Gender = gender;
             Salary = salary;
+            Subordinates = subordinates;
+            Gender = gender;
             EnrollmentDate = enrollmentDate;
             SurchargePercentage = surchargePercentage;
-            Subordinates = subordinates;
         }
-
+        
         public string Name { get; }
-
         public string Surname { get; }
-        public byte Age { get; }
-
-        public EmployeeGender Gender { get; }
-
         public decimal Salary { get; }
-
+        public EmployeeGender Gender { get; }
         public DateTime EnrollmentDate { get; }
-
         public Surcharge SurchargePercentage { get; }
-        public List<IEmployee> Subordinates { get; }
+        public List<IEmployee> Subordinates { get; set; }
 
         public abstract decimal CalculateSalary();
-
         public abstract uint CalculateSurchargePercentage();
     }
 }
