@@ -13,18 +13,18 @@ namespace Payroll
 {
     public static class Program
     {
-        private const string _dbName = "payroll.db";
+        public const string DBNAME = "payroll.db";
         public static ILiteDatabase Database;
         [STAThread]
         static void Main()
         {
-            Database = new LiteDatabase(Path.Combine(Directory.GetCurrentDirectory(), _dbName));
+            using (Database)
+            {
+                new LiteDatabase(DBNAME);
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Authentication());
-
-            EmployeeManager manager = new EmployeeManager();
-            Employee employee = manager.CreateEmployee("d", "d", 22, EmployeeGender.Man, 34444, DateTime.Now);
             
         }
     }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Payroll.Core.Data.EmployeeDB
 {
@@ -17,7 +18,8 @@ namespace Payroll.Core.Data.EmployeeDB
         {
             Employees = Program.Database.GetCollection<EmployeeBase>("Employees");
         }
-        
+
+
         public static EmployeeBase FindEmployee(string employeeId)
         {
             return Employees.FindById(employeeId);

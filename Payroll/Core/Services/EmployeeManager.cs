@@ -1,4 +1,5 @@
-﻿using Payroll.Core.Models;
+﻿using Payroll.Core.Data.EmployeeDB;
+using Payroll.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +10,22 @@ namespace Payroll.Core.Services
 {
     public class EmployeeManager
     {
-        public Employee CreateEmployee(string name, string surname, byte age, EmployeeGender gender, decimal baseSalary, DateTime dateTime)
+        public Employee CreateEmployee(string name, string surname, decimal baseSalary, EmployeeGender gender, DateTime dateTime)
         {
-            return new Employee(name, surname, age, gender, baseSalary, dateTime);
+            var emp = EmployeeTable.Employees.Count();
+            return new Employee((emp + 1).ToString(), name, surname, baseSalary, gender, dateTime, new Surcharge(3,30));
         }
 
-        public Manager CreateManager(string name, string surname, byte age, EmployeeGender gender, decimal baseSalary, DateTime dateTime)
+        public Manager CreateManager(string name, string surname, decimal baseSalary, EmployeeGender gender, DateTime dateTime)
         {
-            return new Manager(name, surname, age, gender, baseSalary, dateTime);
+            var emp = EmployeeTable.Employees.Count();
+            return new Manager((emp + 1).ToString(), name, surname, baseSalary, gender, dateTime, new Surcharge(5, 40));
         }
 
-        public Salesman CreateSalesman(string name, string surname, byte age, EmployeeGender gender, decimal baseSalary, DateTime dateTime)
+        public Salesman CreateSalesman(string name, string surname, decimal baseSalary, EmployeeGender gender, DateTime dateTime)
         {
-            return new Salesman(name, surname, age, gender, baseSalary, dateTime);
+            var emp = EmployeeTable.Employees.Count();
+            return new Salesman((emp + 1).ToString(), name, surname, baseSalary, gender, dateTime, new Surcharge(1, 35));
         }
 
 
