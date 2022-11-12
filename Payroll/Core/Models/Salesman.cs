@@ -10,8 +10,8 @@ namespace Payroll.Core.Models
 {
     public class Salesman : EmployeeBase
     {
-        public Salesman(string name, string surname, byte age, EmployeeGender gender, decimal baseSalary, DateTime enrollmentDate) :
-            base(name, surname, age, gender, baseSalary, enrollmentDate, new Surcharge(1, 35), new List<IEmployee>()) { }
+        public Salesman(string id, string name, string surname, decimal baseSalary, EmployeeGender gender, DateTime enrollmentDate, Surcharge surchargePercentage, List<IEmployee> employees = null) :
+            base(id, name, surname, baseSalary, gender, enrollmentDate, surchargePercentage, employees) { }
 
         public override decimal CalculateSalary()
         {
