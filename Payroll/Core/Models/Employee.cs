@@ -11,8 +11,8 @@ namespace Payroll.Core.Models
 {
     public class Employee : EmployeeBase
     {
-        public Employee(string name, string surname, byte age, EmployeeGender gender, decimal baseSalary, DateTime enrollmentDate) :
-            base (name, surname, age, gender, baseSalary, enrollmentDate, new Surcharge(3,30)) { }
+        public Employee(string id, string name, string surname, decimal baseSalary, EmployeeGender gender, DateTime enrollmentDate, Surcharge surchargePercentage, List<IEmployee> employees = null) :
+            base(id, name, surname, baseSalary, gender, enrollmentDate, surchargePercentage, employees) { }
 
 
         public override decimal CalculateSalary()
@@ -22,7 +22,7 @@ namespace Payroll.Core.Models
 
         public override uint CalculateSurchargePercentage()
         {
-            if ((DateTime.Now.Year - EnrollmentDate.Year) * SurchargePercentage.IncreaseSurcharge >= SurchargePercentage.MaxSurcharge) 
+            if ((DateTime.Now.Year - EnrollmentDate.Year) * SurchargePercentage.IncreaseSurcharge >= SurchargePercentage.MaxSurcharge)
             {
                 return SurchargePercentage.MaxSurcharge;
             }
