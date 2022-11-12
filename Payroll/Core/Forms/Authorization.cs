@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Payroll.Core.Models;
+using Payroll.Core.Services;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -33,6 +36,35 @@ namespace Payroll.Core.Forms
         {
             new Authentication().Show();
             this.Hide();
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void buttonRegister_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textUsername.Text) && !string.IsNullOrWhiteSpace(textPassword.Text))
+            {
+                var user = Authentication.Collection.FindById(textUsername.Text);
+                
+                if (user != null)
+                {
+                    if (textPassword.Text == user.Password)
+                    {
+                        new Dashboard().Show();
+                        this.Hide();
+                    }    
+                }
+                else
+                {
+                    MessageBox.Show("Invalid login or password.");
+                    textUsername.Clear();
+                    textPassword.Clear();
+                }
+
+            }
         }
     }
 }
