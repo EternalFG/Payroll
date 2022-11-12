@@ -13,11 +13,9 @@ namespace Payroll.Core.Services
 
         string Surname { get; }
 
-        byte Age { get; }
-
+        decimal Salary { get; }
         EmployeeGender Gender { get; }
 
-        decimal Salary { get; }
         DateTime EnrollmentDate { get; }
     }
 }
