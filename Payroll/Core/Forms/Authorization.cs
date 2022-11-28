@@ -48,12 +48,14 @@ namespace Payroll.Core.Forms
             if (!string.IsNullOrWhiteSpace(textUsername.Text) && !string.IsNullOrWhiteSpace(textPassword.Text))
             {
                 var user = Authentication.Collection.FindById(textUsername.Text);
-                
+
                 if (user != null)
                 {
                     if (textPassword.Text == user.Password)
                     {
+                        Dashboard.User = user;
                         new Dashboard().Show();
+                        
                         this.Hide();
                     }    
                 }
