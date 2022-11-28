@@ -13,15 +13,9 @@ namespace Payroll
 {
     public static class Program
     {
-        public const string DBNAME = "payroll.db";
-        public static ILiteDatabase Database;
         [STAThread]
         static void Main()
         {
-            using (Database)
-            {
-                new LiteDatabase(DBNAME);
-            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Authentication());

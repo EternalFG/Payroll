@@ -54,8 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Data\EmployeeDB\EmployeeTable.cs" />
-    <Compile Include="Core\Data\UserDB\UserTable.cs" />
     <Compile Include="Core\Forms\Authentication.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,12 +72,14 @@
     <Compile Include="Core\Forms\Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Models\DopTest.cs" />
     <Compile Include="Core\Models\Employee.cs" />
     <Compile Include="Core\Models\EmployeeBase.cs" />
     <Compile Include="Core\Models\EmployeeGender.cs" />
     <Compile Include="Core\Models\Manager.cs" />
     <Compile Include="Core\Models\Salesman.cs" />
     <Compile Include="Core\Models\Surcharge.cs" />
+    <Compile Include="Core\Models\Test.cs" />
     <Compile Include="Core\Models\User.cs" />
     <Compile Include="Core\Services\EmployeeManager.cs" />
     <Compile Include="Core\Services\IEmployee.cs" />
@@ -121,6 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ffa09aec412db3f54deadf1b3781de2a.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
