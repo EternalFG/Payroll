@@ -31,5 +31,6 @@ namespace Payroll.Core.Models
                 return (uint)((DateTime.Now.Year - EnrollmentDate.Year) * SurchargePercentage.IncreaseSurcharge);
             }
         }
+        public Employee() { }
     }
 }
