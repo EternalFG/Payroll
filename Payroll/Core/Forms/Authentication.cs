@@ -1,7 +1,4 @@
 ﻿using LiteDB;
-using Payroll.Core.Data.EmployeeDB;
-//using Payroll.Core.Data.EmployeeDB;
-//using Payroll.Core.Data.UserDB;
 using Payroll.Core.Forms;
 using Payroll.Core.Models;
 using Payroll.Core.Services;
@@ -22,6 +19,7 @@ namespace Payroll
         public static ILiteDatabase Database = new LiteDatabase("Database.db");
 
         public static ILiteCollection<User> Collection = Database.GetCollection<User>("Users");
+        public static ILiteCollection<IEmployee> Employees = Database.GetCollection<IEmployee>("Emp");
         public Authentication()
         {
             InitializeComponent();
@@ -58,7 +56,8 @@ namespace Payroll
                 User user = new User()
                 {
                     UserName = textUsername.Text,
-                    Password = textPassword.Text
+                    Password = textPassword.Text,
+                    Employee = false,
                 };
                 if (Collection.FindById(user.UserName) != null)
                 {
