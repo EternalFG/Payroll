@@ -140,9 +140,7 @@ namespace Payroll.Core.Forms
                     else if (employee is Employee emp)
                     {
                         textBoxBaseSalary.Text = emp.Salary.ToString();
-                        MessageBox.Show("Я тут");
                         textBoxCalculateSalary.Text = emp.CalculateSalary().ToString();
-                        MessageBox.Show("Вышел");
                     }
                 }
             }
@@ -177,13 +175,10 @@ namespace Payroll.Core.Forms
             comboBox2.Visible = false;
             button1.Visible = false;
             button2.Visible = false;
-            //var employees = EmployeeTable.Employees.FindAll();
             for (int i = 0; i < dataGridViewSubordinates.Columns.Count; i++)
             {
-                dataGridViewSubordinates.Rows.Add("sex", "Da", 30000, "Man", "Pizda");
+                dataGridViewSubordinates.Rows.Add("Flag1", "Flag2", 30000, "Man", "Flag3");
             }
-            //dataTable.Columns.Add("Name", typeof(string));
-            //dataGridViewSubordinates.DataSource = dataAdapter;
 
         }
 
