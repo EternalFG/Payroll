@@ -51,6 +51,7 @@ namespace Payroll.Core.Forms
             }
             
             nameUser.Text = User.UserName;
+            
         }
 
         private void Visibility(bool calculateSalar, bool hzz, bool viewSub, bool dashboard)
@@ -175,9 +176,12 @@ namespace Payroll.Core.Forms
             comboBox2.Visible = false;
             button1.Visible = false;
             button2.Visible = false;
-            for (int i = 0; i < dataGridViewSubordinates.Columns.Count; i++)
+
+            var Employees = Authentication.Employees.FindAll();
+
+            foreach (var eml in Employees)
             {
-                dataGridViewSubordinates.Rows.Add("Flag1", "Flag2", 30000, "Man", "Flag3");
+                dataGridViewSubordinates.Rows.Add($"{eml.User.UserName}", $"{eml.User.Password}", eml.User.Gender, eml.User.Salary, eml.User.EnrollmentDate, eml.GetType().Name);
             }
 
         }
@@ -230,7 +234,6 @@ namespace Payroll.Core.Forms
             if (nickLenth % 2 != 0) newNick.Remove(newNick.Length - 1, 1);
 
             newNick[0] = char.ToUpper(newNick[0]);
-            MessageBox.Show(newNick.ToString());
             return newNick.ToString();
             
         }
@@ -272,16 +275,16 @@ namespace Payroll.Core.Forms
                     {
                         if (comboBox2.Text == "Employee")
                         {
-                            Employee employee = employeeManager.CreateEmployee(textBox3.Text, textBox4.Text, salary, EmployeeGender.Man, DateTime.Now);
+                            Employee employee = employeeManager.CreateEmployee(textBox3.Text, textBox4.Text, salary, EmployeeGender.Man, DateTime.UtcNow);
                             employee.User.UserName = getNickname(8);
                             employee.User.Password = getPassword();
                             employee.User.Employee = true;
+                            employee.User.Salary = salary;
+                            employee.User.EnrollmentDate = DateTime.UtcNow;
+                            employee.User.Gender = EmployeeGender.Man.ToString();
                             Authentication.Employees.Insert(employee);
-                            foreach (var emp in Authentication.Employees.FindAll())
-                            {
-                                MessageBox.Show(emp.Name);
-                            }
                             Authentication.Collection.Insert(employee.User);
+                            Authentication.Employees.Update(employee);
                             labelLogin.Text = employee.User.UserName;
                             labelPassword.Text = employee.User.Password;
                             showSuccessfuly();

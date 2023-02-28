@@ -13,7 +13,7 @@ namespace Payroll.Core.Models
         public Manager(string id, string name, string surname, decimal baseSalary, EmployeeGender gender, DateTime enrollmentDate, Surcharge surchargePercentage, List<IEmployee> employees = null) :
             base(id, name, surname, baseSalary, gender, enrollmentDate, surchargePercentage, employees) { }
 
-        
+
 
         public override decimal CalculateSalary()
         {

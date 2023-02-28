@@ -19,7 +19,7 @@ namespace Payroll
         public static ILiteDatabase Database = new LiteDatabase("Database.db");
 
         public static ILiteCollection<User> Collection = Database.GetCollection<User>("Users");
-        public static ILiteCollection<IEmployee> Employees = Database.GetCollection<IEmployee>("Emp");
+        public static ILiteCollection<EmployeeBase> Employees = Database.GetCollection<EmployeeBase>("Emp");
         public Authentication()
         {
             InitializeComponent();

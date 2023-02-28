@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Payroll.Core.Models
 {
-    public abstract class EmployeeBase : User, ISalaryCalculation
+    public abstract class EmployeeBase : ISalaryCalculation
     {
         [BsonId] public string Id { get; }
 
@@ -34,7 +34,6 @@ namespace Payroll.Core.Models
         public DateTime EnrollmentDate { get; }
         public Surcharge SurchargePercentage { get; }
         public List<IEmployee> Subordinates { get; set; }
-
         public abstract decimal CalculateSalary();
         public abstract uint CalculateSurchargePercentage();
     }

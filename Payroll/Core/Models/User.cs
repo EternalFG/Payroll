@@ -15,5 +15,10 @@ namespace Payroll.Core.Models
 
         public bool Employee { get; set; }
 
+        public decimal Salary { get; set; }
+
+        public string Gender { get; set; }
+
+        public DateTime EnrollmentDate { get; set; }
     }
 }
